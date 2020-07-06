@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#BFDFDCDC"
     tools:context=".MainActivity">
-
+    <ImageView
+        android:src="@drawable/mafalda"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ImageView>
+    <ImageView
+        android:background="#BEFFFFFF"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ImageView>
     <fragment
         android:id="@+id/fragmentPreguntas"
-        tools:layout="@layout/fragment_preguntas"
-        android:name="com.project.encuesta.vista.PreguntasFragment"
+        tools:layout="@layout/fragment_menu"
+        android:name="com.project.encuesta.vista.MenuFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
     </fragment>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

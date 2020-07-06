@@ -1,6 +1,5 @@
 package com.project.encuesta.adaptador;
 
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.encuesta.R;
 import com.project.encuesta.model.Pregunta;
+import com.project.encuesta.model.TipoEncuesta;
 
 import java.util.ArrayList;
 
-public class AdaptadorPreguntas extends RecyclerView.Adapter<AdaptadorPreguntas.ViewHolderPreguntas>
+public class AdaptadorTipoEncuesta extends RecyclerView.Adapter<AdaptadorTipoEncuesta.ViewHolderPreguntas>
         implements View.OnClickListener{
 
     View.OnClickListener listener;
 
-    ArrayList<Pregunta> preguntas;
+    ArrayList<TipoEncuesta> tipoEncuestas;
 
-    public AdaptadorPreguntas(ArrayList<Pregunta> preguntas) {
-        this.preguntas = preguntas;
+    public AdaptadorTipoEncuesta(ArrayList<TipoEncuesta> tipoEncuestas) {
+        this.tipoEncuestas = tipoEncuestas;
     }
 
     @NonNull
@@ -37,13 +37,12 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<AdaptadorPreguntas.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPreguntas holder, int position) {
-        holder.txtNumPregunta.setText(""+position);
-        holder.txtPregunta.setText(""+preguntas.get(position).getPregunta());
+        holder.txtPregunta.setText(""+tipoEncuestas.get(position).getNombre());
     }
 
     @Override
     public int getItemCount() {
-        return preguntas.size();
+        return tipoEncuestas.size();
     }
 
     public void setOnClickListener(View.OnClickListener listener){
@@ -58,11 +57,10 @@ public class AdaptadorPreguntas extends RecyclerView.Adapter<AdaptadorPreguntas.
     }
 
     public class ViewHolderPreguntas extends RecyclerView.ViewHolder {
-        TextView txtNumPregunta,txtPregunta;
+        TextView txtPregunta;
 
         public ViewHolderPreguntas(@NonNull View itemView) {
             super(itemView);
-            txtNumPregunta = itemView.findViewById(R.id.txtNumPregunta);
             txtPregunta = itemView.findViewById(R.id.txtPregunta);
         }
     }
