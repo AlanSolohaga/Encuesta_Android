@@ -1,20 +1,29 @@
 package com.project.encuesta.vista;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.project.encuesta.MainActivity;
 import com.project.encuesta.R;
 import com.project.encuesta.adaptador.AdaptadorTipoEncuesta;
+import com.project.encuesta.interfaz.ComunicaFragments;
 import com.project.encuesta.interfaz.PresentInterface;
 import com.project.encuesta.interfaz.VistaInterface;
+import com.project.encuesta.model.Encuesta;
 import com.project.encuesta.model.TipoEncuesta;
 import com.project.encuesta.presentador.Presentador;
 
@@ -75,60 +84,24 @@ public class MenuFragment extends Fragment implements VistaInterface {
 
 
 
+    TextView txtTittle;
     RecyclerView recyclerPreguntas;
     AdaptadorTipoEncuesta adaptador;
-
+    Activity activity;
+    ComunicaFragments comunicaFragments;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-
+        txtTittle = view.findViewById(R.id.txtTittle);
         recyclerPreguntas = view.findViewById(R.id.recyclerPreguntas);
         recyclerPreguntas.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        //NECESITO UN ARRAY PARA PASAR AL ADAPTADOR
-
-        /*final AdaptadorTipoEncuesta adaptador = new AdaptadorTipoEncuesta(presentador.mostrarArray());
-        */
-        /*
-        ArrayList<TipoEncuesta> tipoEncuestas = new ArrayList<>();
-        TipoEncuesta tipoEncuesta1 = new TipoEncuesta("Personajes de Mafalda",
-                "¿Qué personaje está viendo?");
-        TipoEncuesta tipoEncuesta2 = new TipoEncuesta("Sentimientos de Mafalda",
-                "¿Qué sentimientos expresa?");
-        TipoEncuesta tipoEncuesta3 = new TipoEncuesta("¿Qué dice la oración?",
-                "¿Qué dice la oración?");
-        tipoEncuestas.add(tipoEncuesta1);
-        tipoEncuestas.add(tipoEncuesta2);
-        tipoEncuestas.add(tipoEncuesta3);
-
-        AdaptadorTipoEncuesta adaptador = new AdaptadorTipoEncuesta(tipoEncuestas);
-        recyclerPreguntas.setAdapter(adaptador);
-
-        adaptador.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getContext(),"MOSTRAR FRAGMENT DE LA ENCUESTA SELEC",Toast.LENGTH_LONG).show();
-            }
-        });
-        */
-
         presentador.listarTipoEncuesta(getContext());
 
         return view;
     }
-
     @Override
-    public void mostrarPregunta(String pregunta) {
-    }
-
-    @Override
-    public void mostrarImagen(byte[] imagen) {
-
-    }
-
-    @Override
-    public void mostrarTipoEncuestas(ArrayList<TipoEncuesta> tipoEncuestas) {
+    public void mostrarTipoEncuestas(final ArrayList<TipoEncuesta> tipoEncuestas) {
         //Creo el adaptador, le paso el array que traigo y lo cargo en el recycler
         adaptador = new AdaptadorTipoEncuesta(tipoEncuestas);
         recyclerPreguntas.setAdapter(adaptador);
@@ -136,17 +109,35 @@ public class MenuFragment extends Fragment implements VistaInterface {
         adaptador.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //presentador.cargarEncuesta(recyclerPreguntas.getChildAdapterPosition(v));
+                /** DIRECCIONAR AL FRAGMENT DE LA ENCUESTA A traves del MainActivity**/
 
-                /** DIRECCIONAR AL FRAGMENT DE LA ENCUESTA**/
-
-                Toast.makeText(getContext(),"Enviar al fragment correspondiente",
-                        Toast.LENGTH_LONG).show();
+                comunicaFragments.mostrarEncuesta(tipoEncuestas.get(recyclerPreguntas.getChildAdapterPosition(v)).getId(),
+                        tipoEncuestas.get(recyclerPreguntas.getChildAdapterPosition(v)).getPregunta());
             }
         });
     }
 
+
+
     @Override
     public void errorMostrarTipoEncuestas(String error) {
         Toast.makeText(getContext(),""+error,Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void mostrarEncuesta(Encuesta encuesta) {
+
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        //Referenciamos para poder comunicar con el activity contenedor
+        if(context instanceof Activity){
+            activity = (Activity) context;
+            comunicaFragments = (ComunicaFragments) activity;
+        }
     }
 }

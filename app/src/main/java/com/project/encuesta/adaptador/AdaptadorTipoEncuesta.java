@@ -9,7 +9,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.encuesta.R;
-import com.project.encuesta.model.Pregunta;
 import com.project.encuesta.model.TipoEncuesta;
 
 import java.util.ArrayList;
@@ -42,7 +41,11 @@ public class AdaptadorTipoEncuesta extends RecyclerView.Adapter<AdaptadorTipoEnc
 
     @Override
     public int getItemCount() {
-        return tipoEncuestas.size();
+        if(tipoEncuestas!=null){
+            return tipoEncuestas.size();
+        }else{
+            return 0;
+        }
     }
 
     public void setOnClickListener(View.OnClickListener listener){

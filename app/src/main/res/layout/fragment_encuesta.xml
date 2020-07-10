@@ -14,12 +14,18 @@
             android:layout_height="300dp">
         </ImageView>
         <TextView
+            android:id="@+id/pregunta"
             android:text="PREGUNTA"
             android:textAlignment="center"
             android:textSize="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </TextView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOpciones"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
     </LinearLayout>
 

@@ -4,28 +4,28 @@ import java.util.ArrayList;
 
 public class Encuesta {
     //private byte[] imagen;
-    private String imagen;
-    private ArrayList<Pregunta> pregunta;
+    private String pregunta;
+    private ArrayList<Opcion> opcion;
 
-    public Encuesta(String imagen, ArrayList<Pregunta> pregunta) {
-        this.imagen = imagen;
+    public Encuesta(String pregunta, ArrayList<Opcion> opcion) {
         this.pregunta = pregunta;
+        this.opcion = opcion;
     }
 
-    public ArrayList<Pregunta> getPregunta() {
+    public ArrayList<Opcion> getOpcion() {
+        return opcion;
+    }
+
+    public void setOpcion(ArrayList<Opcion> opcion) {
+        this.opcion = opcion;
+    }
+
+    public String getPregunta() {
         return pregunta;
     }
 
-    public void setPregunta(ArrayList<Pregunta> pregunta) {
+    public void setPregunta(String pregunta) {
         this.pregunta = pregunta;
-    }
-
-    public String getImagen() {
-        return imagen;
-    }
-
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
     }
 
 

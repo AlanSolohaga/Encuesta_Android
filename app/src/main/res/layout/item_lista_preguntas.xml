@@ -1,47 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:background="#CBFDC313"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:layout_width="70dp"
             android:layout_height="100dp"
-            android:layout_weight="1"
             android:src="@drawable/mafalda1"></ImageView>
         <TextView
             android:id="@+id/txtPregunta"
-            android:layout_weight="2"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="5dp"
             android:layout_marginEnd="5dp"
             android:textColor="@color/negro"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textSize="30dp"></TextView>
 
     </LinearLayout>
-    <ImageView
+    <TextView
         android:background="@color/negro"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginEnd="15dp"></ImageView>
+        android:layout_height="5dp"
+        android:layout_marginEnd="5dp"></TextView>
 </LinearLayout>
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>

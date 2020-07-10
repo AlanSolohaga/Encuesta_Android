@@ -14,13 +14,10 @@
         android:background="#BEFFFFFF"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ImageView>
-    <fragment
-        android:id="@+id/fragmentPreguntas"
-        tools:layout="@layout/fragment_menu"
-        android:name="com.project.encuesta.vista.MenuFragment"
+    <FrameLayout
+        android:id="@+id/contenedor"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    </fragment>
+        android:layout_height="match_parent">
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
