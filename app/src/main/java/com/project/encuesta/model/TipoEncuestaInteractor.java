@@ -10,6 +10,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.project.encuesta.interfaz.PresentInterface;
 import com.project.encuesta.interfaz.TipoEncuestaInterface;
+import com.project.encuesta.utilidades.Utilidades;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -24,12 +25,11 @@ public class TipoEncuestaInteractor implements TipoEncuestaInterface,Response.Li
         this.presentador = presentador;
     }
 
+    Utilidades utilidades = new Utilidades();
+
     RequestQueue request;
     JsonObjectRequest jsonObjectRequest;
     ArrayList<TipoEncuesta> tipoEncuestas;
-    Encuesta encuesta;
-    ArrayList<Opcion> opcions;
-
 
     /************************CARGA DE LA VISTA MENU*************************************/
 
@@ -39,16 +39,14 @@ public class TipoEncuestaInteractor implements TipoEncuestaInterface,Response.Li
         request = Volley.newRequestQueue(context);
         cargarWebService();
     }
-
     public void cargarWebService(){
-        String sql = "http://192.168.5.112/bdEncuesta/tipoEncuesta.php";
+        String sql = "http://"+ utilidades.IP +"/bdEncuesta/tipoEncuesta.php";
         jsonObjectRequest = new JsonObjectRequest(Request.Method.GET,sql,null,
                 this,this);
         request.add(jsonObjectRequest);
     }
     @Override
     public void onErrorResponse(VolleyError error) {
-        //Mostrar error
         presentador.errorMostrarTipoEncuestas("ERROR AL CARGAR WEBSERVICE: "+error.toString());
     }
 
@@ -67,10 +65,9 @@ public class TipoEncuestaInteractor implements TipoEncuestaInterface,Response.Li
                         jsonObject.optString("pregunta")
                 );
                 tipoEncuestas.add(tipoEncuesta);
-                //agregarAlArray(tipoEncuesta);
             }
 
-            //ENVIO AL PRESENTADOR EL ARRAY PARA MOSTRARLO EN LA VISTA A TRAVES DEL ADAPTADOR
+            /**ENVIO AL PRESENTADOR EL ARRAY PARA MOSTRARLO EN LA VISTA A TRAVES DEL ADAPTADOR*/
             presentador.mostrarTipoEncuestas(tipoEncuestas);
 
         }catch (Exception e){
@@ -88,42 +85,5 @@ public class TipoEncuestaInteractor implements TipoEncuestaInterface,Response.Li
             tipoEncuestas.add(tipoEncuesta);
         }
     }
-    /**********************************************************************************/
-    /** ******************CARGA DE LA VISTA ENCUESTA***********************************/
-
-    // NO LO VOY A USAR POR EL MOMENTO
-    @Override
-    public ArrayList<Opcion> obtenerOpciones(ArrayList<Opcion> opciones) {
-        String sql = "http://192.168.5.112/bdEncuesta/opciones.php?id_tipo_encuesta=4";
-
-        return null;
-    }
-
-
-    @Override
-    public void cargarEncuesta(int id) {
-        //encuesta = new Encuesta(tipoEncuestas.get(id).getPregunta(),obtenerOpciones(id));
-
-        opcions = new ArrayList<>();
-        Opcion opcion = new Opcion(1,"Opcion");
-        opcions.add(opcion);
-        Encuesta encuesta1 = new Encuesta("PREGUNTA NUEVA",opcions);
-        presentador.mostrarEncuesta(encuesta1);
-
-    }
-
-
-
-    private ArrayList<Opcion> obtenerOpciones(int id) {
-        String sql = "http://192.168.5.112/bdEncuesta/opciones.php?id_tipo_encuesta="+id;
-
-
-        return opcions;
-    }
-
-    private void obtenerImagen(int id){
-        // DE AQUÍ RELACIONARÉ LA IMAGEN
-    }
-
 
 }

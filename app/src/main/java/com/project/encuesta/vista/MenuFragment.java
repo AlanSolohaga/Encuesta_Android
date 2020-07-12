@@ -6,9 +6,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
@@ -17,17 +15,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.project.encuesta.MainActivity;
 import com.project.encuesta.R;
 import com.project.encuesta.adaptador.AdaptadorTipoEncuesta;
 import com.project.encuesta.interfaz.ComunicaFragments;
 import com.project.encuesta.interfaz.PresentInterface;
 import com.project.encuesta.interfaz.VistaInterface;
-import com.project.encuesta.model.Encuesta;
 import com.project.encuesta.model.TipoEncuesta;
 import com.project.encuesta.presentador.Presentador;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -89,13 +83,16 @@ public class MenuFragment extends Fragment implements VistaInterface {
     AdaptadorTipoEncuesta adaptador;
     Activity activity;
     ComunicaFragments comunicaFragments;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         txtTittle = view.findViewById(R.id.txtTittle);
         recyclerPreguntas = view.findViewById(R.id.recyclerPreguntas);
-        recyclerPreguntas.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        recyclerPreguntas.setLayoutManager(new GridLayoutManager(view.getContext(),1));
+
+        /**Lista los tipo_encuesta de la base de datos*/
         presentador.listarTipoEncuesta(getContext());
 
         return view;
@@ -126,15 +123,10 @@ public class MenuFragment extends Fragment implements VistaInterface {
     }
 
     @Override
-    public void mostrarEncuesta(Encuesta encuesta) {
-
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
 
-        //Referenciamos para poder comunicar con el activity contenedor
+        /** Referenciamos para poder comunicar con el activity contenedor **/
         if(context instanceof Activity){
             activity = (Activity) context;
             comunicaFragments = (ComunicaFragments) activity;
