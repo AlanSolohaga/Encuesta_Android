@@ -20,4 +20,12 @@
         android:layout_height="match_parent">
     </FrameLayout>
 
+    <Button
+        android:id="@+id/btnLogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="log out"
+        android:onClick="logOut"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        app:layout_constraintBottom_toBottomOf="parent"></Button>
 </androidx.constraintlayout.widget.ConstraintLayout>
